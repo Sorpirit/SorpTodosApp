@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/SorpTodosApp/static/js/main.037b3962.js",
+    "main.js": "/SorpTodosApp/static/js/main.aa8b19de.js",
     "index.html": "/SorpTodosApp/index.html",
-    "main.037b3962.js.map": "/SorpTodosApp/static/js/main.037b3962.js.map"
+    "main.aa8b19de.js.map": "/SorpTodosApp/static/js/main.aa8b19de.js.map"
   },
   "entrypoints": [
-    "static/js/main.037b3962.js"
+    "static/js/main.aa8b19de.js"
   ]
 }

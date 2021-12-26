@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/%7Brepo-name%7D/static/js/main.a38d4e36.js",
+    "index.html": "/%7Brepo-name%7D/index.html",
+    "main.a38d4e36.js.map": "/%7Brepo-name%7D/static/js/main.a38d4e36.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a38d4e36.js"
+  ]
+}

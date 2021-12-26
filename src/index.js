@@ -9,7 +9,7 @@ ReactDOM.render(
   <Auth0Provider
     domain={config['auth-domain']}
     clientId={config['auth-clinet-id']}
-    redirectUri={window.location.origin}
+    redirectUri={config['auth-redirect-uri']}
     audience={config['auth-audience']}
   >
     <ApolloWrapper>

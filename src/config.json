@@ -1,6 +1,7 @@
 {
   "auth-domain": "dev-s8ab2y7a.us.auth0.com",
   "auth-clinet-id": "StE9z15lQIRCPBSIdmSG13PiffsaoN43",
+  "auth-redirect-uri": "https://sorpirit.github.io/SorpTodosApp/",
   "auth-audience": "https://dev-s8ab2y7a.us.auth0.com/api/v2/",
   "hasura-uri": "wss://my-best-app-hasura1.herokuapp.com/v1/graphql"
 }

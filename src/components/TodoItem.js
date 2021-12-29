@@ -48,7 +48,7 @@ function TodoItem({ props }) {
             inputProps={{ 'aria-labelledby': labelId }}
           />
         </ListItemIcon>
-        <ListItemText id={labelId} style={{ textDecoration: (done ? 'line-through' : 'none') }} primary={props.text} />
+        <ListItemText id={labelId} sx={{ textDecoration: (done ? 'line-through' : 'none') }} primary={props.text} />
       </ListItemButton>
     </ListItem>
   );

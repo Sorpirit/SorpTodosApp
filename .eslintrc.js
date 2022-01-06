@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:sonarjs/recommended'
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -16,10 +17,13 @@ module.exports = {
   },
   plugins: [
     'react',
+    'sonarjs'
   ],
   rules: {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "sonarjs/cognitive-complexity": ["error", 15],
+    "sonarjs/no-identical-expressions": "error"
   },
 };

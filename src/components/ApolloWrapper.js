@@ -5,7 +5,6 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import { setContext } from '@apollo/link-context';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import config from '../config.json';
 
 function ApolloWrapper({ children }) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -13,8 +12,12 @@ function ApolloWrapper({ children }) {
 
   useEffect(() => {
     const getToken = async () => {
-      const token = isAuthenticated ? await getAccessTokenSilently() : '';
-      setBearerToken(token);
+      try {
+        const token = isAuthenticated ? await getAccessTokenSilently() : '';
+        setBearerToken(token);
+      } catch (e) {
+        console.error(e.message);
+      }
     };
     getToken();
   }, [isAuthenticated, getAccessTokenSilently]);
@@ -31,7 +34,7 @@ function ApolloWrapper({ children }) {
   });
 
   const wsLink = new WebSocketLink({
-    uri: config['hasura-uri'],
+    uri: process.env.REACT_APP_HASURA_URI,
     options: {
       reconnect: true,
       connectionParams: () => ({

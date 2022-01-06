@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useSubscription } from '@apollo/client';
 import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 import {
   TextField, Box, Button, Container, List, Typography,
 } from '@mui/material';
@@ -17,9 +18,23 @@ function App() {
   const [addTodo, { loading: addTodoLoading }] = useMutation(ADD_TODO);
   const { data, loading, error } = useSubscription(SUBSCRIBE_TODOS);
   const [NewTodoText, setNewTodoText] = useState('');
+  const [offlineAllert, setOfflineAllert] = useState(false);
+  const [waitingForResponse, setWaitingForResponse] = useState(true);
   const {
     loginWithRedirect, logout, isAuthenticated, loading: authLoading,
   } = useAuth0();
+
+  useEffect(() => {
+    setWaitingForResponse(false);
+  }, [data]);
+
+  window.onoffline = () => {
+    setOfflineAllert(true);
+  };
+
+  window.ononline = () => {
+    setOfflineAllert(false);
+  };
 
   const AddTodo = (event) => {
     event.preventDefault();
@@ -31,6 +46,7 @@ function App() {
 
     addTodo({ variables });
     setNewTodoText('');
+    setWaitingForResponse(true);
   };
 
   const DeleteTodo = ({ id }) => {
@@ -39,6 +55,7 @@ function App() {
     };
 
     deleteTodo({ variables });
+    setWaitingForResponse(true);
   };
 
   const CheckTodo = ({ id, done }) => {
@@ -50,6 +67,25 @@ function App() {
     toggleTodo({ variables });
   };
 
+  if (offlineAllert) {
+    return (
+      <div sx={{ width: '100%' }}>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          p: 1,
+          m: 1,
+          flexDirection: 'column',
+        }}
+        >
+          <Typography variant="h3" textAlign="center">It looks like you are offline :(</Typography>
+          <CircularProgress sx={{ flexShrink: 0 }} />
+        </Box>
+      </div>
+    );
+  }
+
   if (loading || authLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -60,13 +96,12 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <div style={{ width: '100%' }}>
+      <div sx={{ width: '100%' }}>
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
           p: 1,
           m: 1,
-          bgcolor: 'background.paper',
           flexDirection: 'column',
         }}
         >
@@ -85,8 +120,8 @@ function App() {
     <Container maxWidth="sm">
       <Typography variant="h1" textAlign="center">Secret todo</Typography>
 
-      <div style={{ width: '100%' }}>
-        <Box sx={{ display: 'flex', p: 1, bgcolor: 'background.paper' }}>
+      <div sx={{ width: '100%' }}>
+        <Box sx={{ display: 'flex', p: 1 }}>
           <TextField
             id="standard-basic"
             label="Today I want to:"
@@ -104,10 +139,10 @@ function App() {
           >
             Add task
           </LoadingButton>
+          { waitingForResponse ? <LinearProgress color="success" /> : '' }
         </Box>
       </div>
-
-      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <List sx={{ width: '100%' }}>
         {
             data.todos.map(({ id, text, done }) => {
               const props = {
@@ -125,7 +160,7 @@ function App() {
           }
       </List>
       <Box sx={{
-        display: 'flex', p: 1, bgcolor: 'background.paper', justifyContent: 'flex-end',
+        display: 'flex', p: 1, justifyContent: 'flex-end',
       }}
       >
         <Button onClick={() => logout()}>Log out</Button>

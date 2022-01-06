@@ -19,14 +19,14 @@ function App() {
   const { data, loading, error } = useSubscription(SUBSCRIBE_TODOS);
   const [NewTodoText, setNewTodoText] = useState('');
   const [offlineAllert, setOfflineAllert] = useState(false);
-  const [waitingForResponse, setWaitingForResponse] = useState(true);
+  const [waitingForResponse, setWaitingForResponse] = useState(false);
   const {
     loginWithRedirect, logout, isAuthenticated, loading: authLoading,
   } = useAuth0();
 
   useEffect(() => {
     setWaitingForResponse(false);
-  }, [data]);
+  }, [data.todos]);
 
   window.onoffline = () => {
     setOfflineAllert(true);

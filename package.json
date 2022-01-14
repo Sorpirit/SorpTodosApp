@@ -33,7 +33,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "prepare": "husky install",
-    "test": "eslint src/**/*.js"
+    "test": "eslint src/**/*.js",
+    "format": "eslint src/**/*.js"
   },
   "eslintConfig": {
     "extends": [

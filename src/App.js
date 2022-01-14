@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     setWaitingForResponse(false);
-  }, [data.todos]);
+  }, [data]);
 
   window.onoffline = () => {
     setOfflineAllert(true);

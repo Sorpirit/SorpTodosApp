@@ -32,7 +32,8 @@
     "lint": "eslint src/**/*.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "eslint src/**/*.js"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,10 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^3.2.3",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.7"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
